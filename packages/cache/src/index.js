@@ -70,18 +70,24 @@ let createCache = (options?: Options): EmotionCache => {
   if (isBrowser) {
     container = options.container || document.head
 
-    const nodes = document.querySelectorAll(`style[data-emotion-${key}]`)
+    Array.prototype.forEach.call(
+      document.querySelectorAll(`style[data-emotion]`),
+      (node: HTMLStyleElement) => {
+        const attrib = node.getAttribute(`data-emotion`).split(' ')
 
-    Array.prototype.forEach.call(nodes, (node: HTMLStyleElement) => {
-      const attrib = node.getAttribute(`data-emotion-${key}`)
-      // $FlowFixMe
-      attrib.split(' ').forEach(id => {
-        inserted[id] = true
-      })
-      if (node.parentNode !== container) {
-        nodesToRehydrate.push(node)
+        if (attrib[0] !== key) {
+          return
+        }
+
+        for (let i = 1; i < attrib.length; i++) {
+          inserted[attrib[i]] = true
+        }
+
+        if (node.parentNode !== container) {
+          nodesToRehydrate.push(node)
+        }
       }
-    })
+    )
   }
 
   let insert: (

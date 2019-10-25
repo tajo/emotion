@@ -5,15 +5,29 @@ import { useContext, forwardRef } from 'react'
 import createCache from '@emotion/cache'
 import { isBrowser } from './utils'
 
-let EmotionCacheContext: React.Context<EmotionCache | null> = React.createContext(
+const createCacheContext = () => {
+  if (isBrowser) {
+    const ssrStyles = document.querySelectorAll(
+      `style[data-emotion], style[data-emotion-global]`
+    )
+    // get SSRed styles out of the way of React's hydration
+    // document.head is a safe place to move them to
+    Array.prototype.forEach.call(ssrStyles, (node: HTMLStyleElement) => {
+      document.head.appendChild(node)
+    })
+  }
   // we're doing this to avoid preconstruct's dead code elimination in this one case
   // because this module is primarily intended for the browser and node
   // but it's also required in react native and similar environments sometimes
   // and we could have a special build just for that
   // but this is much easier and the native packages
   // might use a different theme context in the future anyway
-  typeof HTMLElement !== 'undefined' ? createCache() : null
-)
+  return React.createContext(
+    typeof HTMLElement !== 'undefined' ? createCache() : null
+  )
+}
+
+let EmotionCacheContext: React.Context<EmotionCache | null> = /* #__PURE__ */ createCacheContext()
 
 export let CacheProvider = EmotionCacheContext.Provider
 

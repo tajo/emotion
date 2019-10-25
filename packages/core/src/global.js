@@ -72,7 +72,7 @@ export let Global: React.AbstractComponent<
     return (
       <style
         {...{
-          [`data-emotion-${cache.key}`]: serializedNames,
+          [`data-emotion-global`]: `${cache.key} ${serializedNames}`,
           dangerouslySetInnerHTML: { __html: rules },
           nonce: cache.sheet.nonce
         }}
@@ -89,25 +89,17 @@ export let Global: React.AbstractComponent<
 
   React.useLayoutEffect(
     () => {
-      let sheet = new StyleSheet({
+      sheetRef.current = new StyleSheet({
         key: `${cache.key}-global`,
         nonce: cache.sheet.nonce,
         container: cache.sheet.container
       })
       // $FlowFixMe
       let node: HTMLStyleElement | null = document.querySelector(
-        `style[data-emotion-${cache.key}="${serialized.name}"]`
+        `style[data-emotion-global="${cache.key} ${serialized.name}"]`
       )
-
       if (node !== null) {
-        sheet.tags.push(node)
-      }
-      if (cache.sheet.tags.length) {
-        sheet.before = cache.sheet.tags[0]
-      }
-      sheetRef.current = sheet
-      return () => {
-        sheet.flush()
+        node.parentNode.removeChild(node)
       }
     },
     [cache]
@@ -119,14 +111,14 @@ export let Global: React.AbstractComponent<
         // insert keyframes
         insertStyles(cache, serialized.next, true)
       }
+
       let sheet: StyleSheet = ((sheetRef.current: any): StyleSheet)
-      if (sheet.tags.length) {
-        // if this doesn't exist then it will be null so the style element will be appended
-        let element = sheet.tags[sheet.tags.length - 1].nextElementSibling
-        sheet.before = ((element: any): Element | null)
+      sheet.before = cache.sheet.tags.length ? cache.sheet.tags[0] : null
+      cache.insert(``, serialized, sheet, false)
+
+      return () => {
         sheet.flush()
       }
-      cache.insert(``, serialized, sheet, false)
     },
     [cache, serialized.name]
   )
