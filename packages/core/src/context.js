@@ -7,9 +7,7 @@ import { isBrowser } from './utils'
 
 const createCacheContext = () => {
   if (isBrowser) {
-    const ssrStyles = document.querySelectorAll(
-      `style[data-emotion], style[data-emotion-global]`
-    )
+    const ssrStyles = document.querySelectorAll(`style[data-emotion]`)
     // get SSRed styles out of the way of React's hydration
     // document.head is a safe place to move them to
     Array.prototype.forEach.call(ssrStyles, (node: HTMLStyleElement) => {
