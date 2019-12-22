@@ -2,12 +2,12 @@
 
 exports[`ssr @import 1`] = `
 
-<style data-emotion-css="1lrxbo5">
+<style data-emotion="css 1lrxbo5">
   .css-1lrxbo5{color:hotpink;}
 </style>
 <div class="css-1lrxbo5">
 </div>
-<style data-emotion-css="1sh9nmh">
+<style data-emotion-global="css 1sh9nmh">
   @import url('https://some-url');h1{color:hotpink;}
 </style>
 
@@ -29,7 +29,7 @@ exports[`ssr ClassNames 1`] = `
 
 exports[`ssr basic 1`] = `
 
-<style data-emotion-css="1lrxbo5">
+<style data-emotion="css 1lrxbo5">
   .css-1lrxbo5{color:hotpink;}
 </style>
 <div class="css-1lrxbo5">
@@ -40,7 +40,7 @@ exports[`ssr basic 1`] = `
 
 exports[`ssr global 1`] = `
 
-<style data-emotion-css="6l7sk3">
+<style data-emotion-global="css 6l7sk3">
   html{background-color:hotpink;}
 </style>
 
@@ -48,7 +48,7 @@ exports[`ssr global 1`] = `
 
 exports[`ssr global with keyframes 1`] = `
 
-<style data-emotion-css="eti4v9 animation-ocj8pk">
+<style data-emotion-global="css eti4v9 animation-ocj8pk">
   h1{-webkit-animation:animation-ocj8pk 1s;animation:animation-ocj8pk 1s;}@-webkit-keyframes animation-ocj8pk{from,to{color:green;}50%{color:hotpink;}}@keyframes animation-ocj8pk{from,to{color:green;}50%{color:hotpink;}}
 </style>
 
@@ -56,7 +56,7 @@ exports[`ssr global with keyframes 1`] = `
 
 exports[`ssr keyframes 1`] = `
 
-<style data-emotion-css="xsstii animation-nd6tn">
+<style data-emotion="css xsstii animation-nd6tn">
   .css-xsstii{-webkit-animation:1s animation-nd6tn;animation:1s animation-nd6tn;}@-webkit-keyframes animation-nd6tn{from{color:green;}to{color:blue;}}@keyframes animation-nd6tn{from{color:green;}to{color:blue;}}
 </style>
 <div class="css-xsstii">
@@ -66,7 +66,7 @@ exports[`ssr keyframes 1`] = `
 
 exports[`ssr only render a style once with styled 1`] = `
 
-<style data-emotion-css="bjcoli">
+<style data-emotion="css bjcoli">
   .css-bjcoli{color:green;}
 </style>
 <div class="css-bjcoli">
@@ -83,11 +83,11 @@ exports[`ssr only render a style once with styled 1`] = `
 
 exports[`ssr only render a style once with the css prop 1`] = `
 
-<style data-emotion-css="bjcoli">
+<style data-emotion="css bjcoli">
   .css-bjcoli{color:green;}
 </style>
 <div class="css-bjcoli">
-  <style data-emotion-css="1lrxbo5">
+  <style data-emotion="css 1lrxbo5">
     .css-1lrxbo5{color:hotpink;}
   </style>
   <div class="css-1lrxbo5">
@@ -100,7 +100,7 @@ exports[`ssr only render a style once with the css prop 1`] = `
 
 exports[`ssr prefix option false 1`] = `
 
-<style data-emotion-css="k008qs">
+<style data-emotion="css k008qs">
   .css-k008qs{display:flex;}
 </style>
 <div class="css-k008qs">
@@ -110,7 +110,7 @@ exports[`ssr prefix option false 1`] = `
 
 exports[`ssr prefix option false with stylis plugins 1`] = `
 
-<style data-emotion-css="k008qs">
+<style data-emotion="css k008qs">
   .css-k008qs{display:flex;}
 </style>
 <div class="css-k008qs">
@@ -120,7 +120,7 @@ exports[`ssr prefix option false with stylis plugins 1`] = `
 
 exports[`ssr prefix option func false 1`] = `
 
-<style data-emotion-css="k008qs">
+<style data-emotion="css k008qs">
   .css-k008qs{display:flex;}
 </style>
 <div class="css-k008qs">
@@ -130,7 +130,7 @@ exports[`ssr prefix option func false 1`] = `
 
 exports[`ssr prefix option func false with stylis plugins 1`] = `
 
-<style data-emotion-css="k008qs">
+<style data-emotion="css k008qs">
   .css-k008qs{display:flex;}
 </style>
 <div class="css-k008qs">
@@ -140,7 +140,7 @@ exports[`ssr prefix option func false with stylis plugins 1`] = `
 
 exports[`ssr prefix option true with stylis plugins 1`] = `
 
-<style data-emotion-css="k008qs">
+<style data-emotion="css k008qs">
   .css-k008qs{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}
 </style>
 <div class="css-k008qs">
@@ -361,14 +361,14 @@ exports[`ssr works with nonces 1`] = `
 </style>
 <div class="css-ihiui2">
 </div>
-<style data-emotion-css="1lrxbo5"
+<style data-emotion="css 1lrxbo5"
        nonce="some-nonce"
 >
   .css-1lrxbo5{color:hotpink;}
 </style>
 <div class="css-1lrxbo5">
 </div>
-<style data-emotion-css="1r145pv"
+<style data-emotion-global="css 1r145pv"
        nonce="some-nonce"
 >
   html{margin:0;padding:0;font-family:sans-serif;}
