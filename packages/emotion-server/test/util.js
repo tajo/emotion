@@ -169,13 +169,15 @@ export const prettyifyCritical = ({
 export const getCssFromChunks = (emotion: Emotion, document: Document) => {
   const chunks = Array.from(
     // $FlowFixMe
-    emotion.sheet.tags[0].parentNode.querySelectorAll(
-      `[data-emotion-${emotion.cache.key}]`
-    )
-  )
+    emotion.sheet.tags[0].parentNode.querySelectorAll(`[data-emotion]`)
+  ).filter(node => {
+    const attrib = ((node.getAttribute(`data-emotion`): any): string).split(' ')
+    // SSRed styles have also serialized names set here
+    return attrib.length > 1
+  })
   expect(
     // $FlowFixMe
-    document.body.querySelector(`[data-emotion-${emotion.cache.key}]`)
+    document.body.querySelector(`[data-emotion]`)
   ).toBeNull()
   let css = chunks.map(chunk => chunk.textContent || '').join('')
   try {
@@ -189,6 +191,12 @@ export const getInjectedRules = () =>
   stringify(
     parse(
       Array.from(document.querySelectorAll('[data-emotion]'))
+        .filter(node => {
+          const attrib = ((node.getAttribute(
+            `data-emotion`
+          ): any): string).split(' ')
+          return attrib.length === 1
+        })
         .map(x => x.textContent || '')
         .join('')
     )
