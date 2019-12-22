@@ -166,15 +166,17 @@ export const prettyifyCritical = ({
   return { css: stringify(parse(css)), ids, html }
 }
 
+const isSSRedStyle = node => {
+  const attrib = ((node.getAttribute(`data-emotion`): any): string).split(' ')
+  // SSRed styles have also serialized names set here
+  return attrib.length > 1
+}
+
 export const getCssFromChunks = (emotion: Emotion, document: Document) => {
   const chunks = Array.from(
     // $FlowFixMe
     emotion.sheet.tags[0].parentNode.querySelectorAll(`[data-emotion]`)
-  ).filter(node => {
-    const attrib = ((node.getAttribute(`data-emotion`): any): string).split(' ')
-    // SSRed styles have also serialized names set here
-    return attrib.length > 1
-  })
+  ).filter(isSSRedStyle)
   expect(
     // $FlowFixMe
     document.body.querySelector(`[data-emotion]`)
@@ -191,12 +193,7 @@ export const getInjectedRules = () =>
   stringify(
     parse(
       Array.from(document.querySelectorAll('[data-emotion]'))
-        .filter(node => {
-          const attrib = ((node.getAttribute(
-            `data-emotion`
-          ): any): string).split(' ')
-          return attrib.length === 1
-        })
+        .filter(node => !isSSRedStyle(node))
         .map(x => x.textContent || '')
         .join('')
     )
