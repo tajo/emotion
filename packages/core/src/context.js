@@ -13,7 +13,7 @@ const createCacheContext = () => {
     // get SSRed styles out of the way of React's hydration
     // document.head is a safe place to move them to
     Array.prototype.forEach.call(ssrStyles, (node: HTMLStyleElement) => {
-      document.head.appendChild(node)
+      ;((document.head: any): HTMLHeadElement).appendChild(node)
     })
   }
   // we're doing this to avoid preconstruct's dead code elimination in this one case

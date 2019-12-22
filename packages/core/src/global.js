@@ -99,7 +99,7 @@ export let Global: React.AbstractComponent<
         `style[data-emotion-global="${cache.key} ${serialized.name}"]`
       )
       if (node !== null) {
-        node.parentNode.removeChild(node)
+        ;((node.parentNode: any): Node).removeChild(node)
       }
     },
     [cache]

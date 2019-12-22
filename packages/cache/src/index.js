@@ -73,7 +73,9 @@ let createCache = (options?: Options): EmotionCache => {
     Array.prototype.forEach.call(
       document.querySelectorAll(`style[data-emotion]`),
       (node: HTMLStyleElement) => {
-        const attrib = node.getAttribute(`data-emotion`).split(' ')
+        const attrib = ((node.getAttribute(`data-emotion`): any): string).split(
+          ' '
+        )
 
         if (attrib[0] !== key) {
           return
