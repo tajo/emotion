@@ -1,6 +1,7 @@
 // @flow
 /** @jsx jsx */
 import 'test-utils/next-env'
+import { safeQuerySelector } from 'test-utils'
 import * as React from 'react'
 import { jsx, css, CacheProvider, ThemeProvider } from '@emotion/core'
 import { render } from '@testing-library/react'
@@ -157,7 +158,7 @@ test('nested at rule', () => {
 })
 
 test('can set speedy via custom cache', () => {
-  let cache = createCache({ speedy: true })
+  let cache = createCache({ key: 'speedy-test', speedy: true })
   renderer.create(
     <CacheProvider value={cache}>
       <div

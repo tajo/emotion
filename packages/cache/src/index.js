@@ -85,9 +85,7 @@ let createCache = (options?: Options): EmotionCache => {
           inserted[attrib[i]] = true
         }
 
-        if (node.parentNode !== container) {
-          nodesToRehydrate.push(node)
-        }
+        nodesToRehydrate.push(node)
       }
     )
   }
