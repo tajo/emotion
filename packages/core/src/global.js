@@ -90,7 +90,8 @@ export let Global: React.AbstractComponent<
   React.useLayoutEffect(
     () => {
       const key = `${cache.key}-global`
-      sheetRef.current = new StyleSheet({
+
+      let sheet = new StyleSheet({
         key,
         nonce: cache.sheet.nonce,
         container: cache.sheet.container
@@ -99,8 +100,16 @@ export let Global: React.AbstractComponent<
       let node: HTMLStyleElement | null = document.querySelector(
         `style[data-emotion="${key} ${serialized.name}"]`
       )
+
+      if (cache.sheet.tags.length) {
+        sheet.before = cache.sheet.tags[0]
+      }
       if (node !== null) {
-        ;((node.parentNode: any): Node).removeChild(node)
+        sheet.rehydrate([node])
+      }
+      sheetRef.current = sheet
+      return () => {
+        sheet.flush()
       }
     },
     [cache]
@@ -112,14 +121,14 @@ export let Global: React.AbstractComponent<
         // insert keyframes
         insertStyles(cache, serialized.next, true)
       }
-
       let sheet: StyleSheet = ((sheetRef.current: any): StyleSheet)
-      sheet.before = cache.sheet.tags.length ? cache.sheet.tags[0] : null
-      cache.insert(``, serialized, sheet, false)
-
-      return () => {
+      if (sheet.tags.length) {
+        // if this doesn't exist then it will be null so the style element will be appended
+        let element = sheet.tags[sheet.tags.length - 1].nextElementSibling
+        sheet.before = ((element: any): Element | null)
         sheet.flush()
       }
+      cache.insert(``, serialized, sheet, false)
     },
     [cache, serialized.name]
   )
