@@ -135,7 +135,7 @@ export let transformExpressionWithStyles = ({
     }
 
     if (label) {
-      const labelString = `;label:${label}`
+      const labelString = `;label:${label};`
 
       switch (autoLabel) {
         case 'dev-only': {
