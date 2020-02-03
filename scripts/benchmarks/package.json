@@ -19,9 +19,15 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-native-web": "0.9.6",
-    "stats-analysis": "^2.0.0"
+    "stats-analysis": "^2.0.0",
+    "styletron-engine-atomic": "^1.4.4",
+    "styletron-engine-monolithic": "^0.0.2",
+    "styletron-react": "^5.2.6"
   },
   "alias": {
     "react-native": "react-native-web"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-inline-environment-variables": "^0.4.3"
   }
 }
